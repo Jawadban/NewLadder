@@ -1,0 +1,16 @@
+ <%= form_for @ad do |a| %>
+ 	<%= a.label :variations %>
+    <%= a.text_field  :variations %>
+    <%= a.hidden_field :name_id, value: @ad.id %> 
+
+  <article>
+    <label class="amount">
+      <span>Your total is: $<%=@ad.price.floor%></span>
+    </label>
+  </article>
+
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="pk_test_DR5DnEeZCECmEKgg8rJmAuia"
+          data-description="Purchase"
+          data-amount=<%=@ad.price*100%>></script>
+<% end %>

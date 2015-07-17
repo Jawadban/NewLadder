@@ -1,0 +1,12 @@
+.wrapper_with_padding
+  #ads.clearfix
+    - unless @ad.blank?
+      - @ad.each do |ad|
+        %a{ href: (url_for [ad])}
+          .ad
+            %p.title= ad.variations
+            %p.date= time_ago_in_words(ad.created_at)
+    - else
+      %h2 Create an ad
+      %p It appears you haven't created any ads yet... Lets fix that. Why don't you go ahead and try creating a new ad
+      %button= link_to "New Ad", new_ad_path

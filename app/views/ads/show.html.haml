@@ -1,0 +1,9 @@
+
+#ad_show
+	%h1.title= @ad.variations
+	%p= simple_format(@ad.description)
+
+	.buttons
+		= link_to "Edit", edit_ad_path(@ad), class: "button"
+		= link_to "Delete", ad_path(@ad), method: :delete, data: { confirm: "Are you sure?" }, class: "button"
+		= link_to "Submit", ad_path(@ad), method: :submit, data: { confirm: "Are you sure?" }, class: "button"
