@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
+  resources :ads
   devise_for :users
   get 'welcome/index'
  resources :notes
 authenticated :user do
-	root 'notes#index', as: "authenticated_root"
+	root 'ads#index', as: "authenticated_root"
 end
 
 root 'welcome#index'
