@@ -26,22 +26,6 @@ class AdsController < ApplicationController
     @ad = current_user.ads.build(ad_params)
     @ad.price = @ad.variations * 5
 
-    
-    customer = Stripe::Customer.create(
-      :email => 'example@stripe.com',
-      :card  => params[:stripeToken]
-    )
-
-    charge = Stripe::Charge.create(
-      :customer    => customer.id,
-      :amount      => 500,#@ad.price,
-      :description => 'Rails Stripe customer',
-      :currency    => 'usd'
-    )
-
-    rescue Stripe::CardError => e
-      flash[:error] = e.message
-    
 
     respond_to do |format|
       if @ad.save
@@ -54,8 +38,30 @@ class AdsController < ApplicationController
     end
   end
 
+
+
   # PATCH/PUT /ads/1
   def update
+    @ad = current_user.ads.build(ad_params)
+    @ad.price = @ad.variations * 5
+
+    
+ customer = Stripe::Customer.create(
+      :email => 'example@stripe.com',
+      :card  => params[:stripeToken]
+    )
+
+    charge = Stripe::Charge.create(
+      :customer    => customer.id,
+      :amount      => (@ad.price*100).to_i,
+      # :description => 'Rails Stripe customer',
+      :currency    => 'usd'
+    )
+
+    rescue Stripe::CardError => e
+      flash[:error] = e.message
+      # redirect_to ads_path
+
     respond_to do |format|
       if @ad.update(ad_params)
         format.html { redirect_to @ad, notice: 'Ad was successfully updated.' }

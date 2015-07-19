@@ -1,7 +1,12 @@
+ <h1> Please confirm these details are correct</h1>
+
+
  <%= form_for @ad do |a| %>
  	<%= a.label :variations %>
     <%= a.text_field  :variations %>
     <%= a.hidden_field :name_id, value: @ad.id %> 
+    <%= a.hidden_field :price, value: @ad.price %> 
+
 
   <article>
     <label class="amount">
@@ -10,7 +15,7 @@
   </article>
 
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          data-key="pk_test_DR5DnEeZCECmEKgg8rJmAuia"
-          data-description="Purchase"
+		  data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+		  data-description="Purchase"
           data-amount=<%=@ad.price*100%>></script>
 <% end %>
