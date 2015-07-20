@@ -8,3 +8,7 @@
 			= link_to "Edit", edit_note_path(@note), class: "button"
 			= link_to "Delete", note_path(@note), method: :delete, data: { confirm: "Are you sure?" }, class: "button"
 			= link_to "Submit", note_path(@note), method: :submit, data: { confirm: "Are you sure?" }, class: "button"
+			
+				- if current_user.admin?
+				= link_to "Submit to Designer", note_path(@note), method: :submit, data: { confirm: "Are you sure?" }, class: "button"
+				= link_to "Submit to Copywriter", note_path(@note), method: :submit, data: { confirm: "Are you sure?" }, class: "button"

@@ -11,7 +11,7 @@
 			= link_to image_tag( 'Ladder'), root_path, id: "logo"
 			%nav
 				- if user_signed_in?
-					= link_to "New Add", new_note_path
+					= link_to "New Ad", new_note_path
 					= link_to "Sign Out", destroy_user_session_path, method: :delete
 				- else
 					= link_to "Log In", new_user_session_path
