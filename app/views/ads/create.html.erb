@@ -1,6 +1,13 @@
+ <h1>Please confirm your order</h1>
  <%= form_for @ad do |a| %>
- 	<%= a.label :variations %>
+ 	  <!-- <%= render 'form' %> -->
+
+    <%= a.label :variations %>
     <%= a.text_field  :variations %>
+    <%= a.label :brief %>
+    <%= a.text_area  :brief %>
+
+
     <%= a.hidden_field :name_id, value: @ad.id %> 
 
   <article>
@@ -9,8 +16,15 @@
     </label>
   </article>
 
+
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="pk_test_DR5DnEeZCECmEKgg8rJmAuia"
           data-description="Purchase"
+
+<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+      data-description="Purchase"
+
           data-amount=<%=@ad.price*100%>></script>
 <% end %>
+

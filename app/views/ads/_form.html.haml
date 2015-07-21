@@ -1,4 +1,11 @@
 = simple_form_for @ad do |f|
 	= f.input :variations
-	= f.input :description
-	= f.button :submit
+	= f.input :brief
+	-if @new_ad
+
+
+		/ = f.check_box :both
+		/ I would like both copy and image made 
+		/ %br
+		= f.button :submit, "Submit", class: "button"
+

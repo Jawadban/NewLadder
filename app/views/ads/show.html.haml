@@ -1,9 +1,18 @@
-
 #ad_show
-	%h1.title= @ad.variations
-	%p= simple_format(@ad.description)
 
-	.buttons
-		= link_to "Edit", edit_ad_path(@ad), class: "button"
-		= link_to "Delete", ad_path(@ad), method: :delete, data: { confirm: "Are you sure?" }, class: "button"
-		= link_to "Submit", ad_path(@ad), method: :submit, data: { confirm: "Are you sure?" }, class: "button"
+	%h1
+		Brief: #{@ad.brief}
+	%p
+		Variations: #{@ad.variations}
+
+	/ -@ad = Ad.find(params[:id])
+
+	= form_for @ad do |f|
+		
+		/HELPPP 
+		/ = link_to "Reorder", ad_path(@ad), method: :put, class: "button"
+		
+
+		= link_to "Cancel", root_path, class: "button"
+
+	

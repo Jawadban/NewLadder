@@ -10,6 +10,8 @@ class AdsController < ApplicationController
 
   # GET /ads/1
   def show
+          @ad = Ad.find(params[:id])
+
   end
 
   # GET /ads/new
@@ -45,7 +47,7 @@ class AdsController < ApplicationController
 
     respond_to do |format|
       if @ad.save
-        format.html { render "create", notice: 'Ad was successfully created.' }
+        format.html { render "create", notice: 'Ad still needs confirmation.' }
         format.json { render :show, status: :created, location: @ad }
       else
         format.html { render :new }
@@ -56,9 +58,30 @@ class AdsController < ApplicationController
 
   # PATCH/PUT /ads/1
   def update
+
+    @ad = current_user.ads.build(ad_params)
+    @ad.price = @ad.variations * 5
+
+    
+   customer = Stripe::Customer.create(
+        :email => 'example@stripe.com',
+        :card  => params[:stripeToken]
+      )
+
+    charge = Stripe::Charge.create(
+      :customer    => customer.id,
+      :amount      => (@ad.price*100).to_i,
+      :description => 'Rails Stripe customer',
+      :currency    => 'usd'
+      )
+
+    rescue Stripe::CardError => e
+      flash[:error] = e.message
+      # redirect_to ads_path
+
     respond_to do |format|
       if @ad.update(ad_params)
-        format.html { redirect_to @ad, notice: 'Ad was successfully updated.' }
+        format.html { redirect_to @ad, notice: 'Ad was successfully submitted.' }
         format.json { render :show, status: :ok, location: @ad }
       else
         format.html { render :edit }
@@ -84,6 +107,6 @@ class AdsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ad_params
-    params.require(:ad).permit(:variations, :description)
+    params.require(:ad).permit(:variations, :brief)
     end
 end

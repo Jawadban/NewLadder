@@ -17,7 +17,9 @@ gem 'coffee-rails', '~> 4.1.0'
 
 gem 'stripe'
 gem "figaro"
-
+gem 'sendgrid' 
+gem 'better_errors'
+gem 'meta_request'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
