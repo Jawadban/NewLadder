@@ -5,6 +5,20 @@
   </head>
   <body>
   <h1> New Order In</h1>
+	
+	<% if @ad.make_copy == true && @ad.make_image == false %>
+    <h3>Request for just copy</h3>
+    <% end %>
+
+    <% if @ad.make_copy == false && @ad.make_image == true %>
+    <h3>Request for just image</h3>
+    <% end %>
+
+    <% if @ad.make_copy == true && @ad.make_image == true %>
+    <h3>Request for both image and copy</h3>
+    <% end %>
+
+
     <p><strong>Ad Brief</strong>: <%= @ad.brief %></p>
     <p><strong>Variations ordered</strong>: <%= @ad.variations %></p>
     <p><strong>Price</strong>: $<%= @ad.price.floor %></p>

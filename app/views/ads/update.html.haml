@@ -1,8 +1,9 @@
-- LadderEmail.send_new_ad_email(@ad).deliver_now
-- ClientEmail.send_client_email(@ad).deliver_now
+-@ad.paid = 1
+
 %h1 Thank you, your order has been received! 
 
 %p= "We're set to make you #{@ad.variations} awesome #{"ad".pluralize(@ad.variations)}!"
 
-%p= "Your total came to $#{@ad.price.floor}"  
-
+%p= "Your total came to $#{@ad.price.floor}"
+- LadderEmail.send_new_ad_email(@ad).deliver_now
+- ClientEmail.send_client_email(@ad).deliver_now

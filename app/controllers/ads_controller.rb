@@ -26,7 +26,7 @@ class AdsController < ApplicationController
   # POST /ads
   def create
     @ad = current_user.ads.build(ad_params)
-    @ad.price = @ad.variations * 5
+    @ad.get_price
 
     
     customer = Stripe::Customer.create(
@@ -36,7 +36,7 @@ class AdsController < ApplicationController
 
     charge = Stripe::Charge.create(
       :customer    => customer.id,
-      :amount      => 500,#@ad.price,
+      :amount      => @ad.price,
       :description => 'Rails Stripe customer',
       :currency    => 'usd'
     )
@@ -60,7 +60,7 @@ class AdsController < ApplicationController
   def update
 
     @ad = current_user.ads.build(ad_params)
-    @ad.price = @ad.variations * 5
+    # @ad.price = @ad.get_price
 
     
    customer = Stripe::Customer.create(
@@ -107,6 +107,6 @@ class AdsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ad_params
-    params.require(:ad).permit(:variations, :brief)
+    params.require(:ad).permit(:variations, :brief, :make_copy, :make_image)
     end
 end

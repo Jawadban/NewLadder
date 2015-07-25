@@ -1,4 +1,6 @@
 class ClientEmail < ApplicationMailer
+
+
   default :from => 'test@ladderdigital.com'
 
   def send_client_email(ad)

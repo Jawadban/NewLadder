@@ -1,14 +1,34 @@
  <h1>Please confirm your order</h1>
  <%= form_for @ad do |a| %>
- 	  <!-- <%= render 'form' %> -->
+
+
+    <% if @ad.make_copy == true && @ad.make_image == false %>
+    <h3>You would like just copy variations made for an existing image</h3>
+    <% end %>
+
+    <% if @ad.make_copy == false && @ad.make_image == true %>
+    <h3>You would like just image variations made for existing copy</h3>
+    <% end %>
+
+    <% if @ad.make_copy == true && @ad.make_image == true %>
+    <h3>You would like both copy and image variations made</h3>
+    <% end %>
+
 
     <%= a.label :variations %>
     <%= a.text_field  :variations %>
     <%= a.label :brief %>
     <%= a.text_area  :brief %>
 
-
     <%= a.hidden_field :name_id, value: @ad.id %> 
+    <%= a.hidden_field :make_copy, value: @ad.make_copy %>
+    <%= a.hidden_field :make_image, value: @ad.make_image%> 
+ 
+
+ 
+
+
+
 
   <article>
     <label class="amount">
