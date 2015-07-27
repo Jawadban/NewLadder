@@ -29,20 +29,20 @@ class AdsController < ApplicationController
     @ad.get_price
 
     
-    customer = Stripe::Customer.create(
-      :email => 'example@stripe.com',
-      :card  => params[:stripeToken]
-    )
+    # customer = Stripe::Customer.create(
+    #   :email => 'example@stripe.com',
+    #   :card  => params[:stripeToken]
+    # )
 
-    charge = Stripe::Charge.create(
-      :customer    => customer.id,
-      :amount      => @ad.price,
-      :description => 'Rails Stripe customer',
-      :currency    => 'usd'
-    )
+    # charge = Stripe::Charge.create(
+    #   :customer    => customer.id,
+    #   :amount      => @ad.price,
+    #   :description => 'Rails Stripe customer',
+    #   :currency    => 'usd'
+    # )
 
-    rescue Stripe::CardError => e
-      flash[:error] = e.message
+    # rescue Stripe::CardError => e
+    #   flash[:error] = e.message
     
 
     respond_to do |format|
@@ -60,7 +60,7 @@ class AdsController < ApplicationController
   def update
 
     @ad = current_user.ads.build(ad_params)
-    # @ad.price = @ad.get_price
+    @ad.price = @ad.get_price
 
     
    customer = Stripe::Customer.create(
@@ -81,7 +81,7 @@ class AdsController < ApplicationController
 
     respond_to do |format|
       if @ad.update(ad_params)
-        format.html { redirect_to @ad, notice: 'Ad was successfully submitted.' }
+        format.html { render "update", notice: 'Ad was successfully submitted.' }
         format.json { render :show, status: :ok, location: @ad }
       else
         format.html { render :edit }

@@ -14,6 +14,10 @@ class Ad < ActiveRecord::Base
 	belongs_to :user
 	validates :variations, numericality: {only_integer: true, greater_than: 0, less_than: 11}
 	validates_with OptionValidator
+#after_save #send emails and stuff, when paid changes, lambda
+			   #paid_changed?  
+
+			   #ajax call after stripe callback comes in  
 
 
 
