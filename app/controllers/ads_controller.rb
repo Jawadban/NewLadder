@@ -28,22 +28,6 @@ class AdsController < ApplicationController
     @ad = current_user.ads.build(ad_params)
     @ad.get_price
 
-    
-    # customer = Stripe::Customer.create(
-    #   :email => 'example@stripe.com',
-    #   :card  => params[:stripeToken]
-    # )
-
-    # charge = Stripe::Charge.create(
-    #   :customer    => customer.id,
-    #   :amount      => @ad.price,
-    #   :description => 'Rails Stripe customer',
-    #   :currency    => 'usd'
-    # )
-
-    # rescue Stripe::CardError => e
-    #   flash[:error] = e.message
-    
 
     respond_to do |format|
       if @ad.save
@@ -55,6 +39,7 @@ class AdsController < ApplicationController
       end
     end
   end
+
 
   # PATCH/PUT /ads/1
   def update
@@ -68,12 +53,17 @@ class AdsController < ApplicationController
         :card  => params[:stripeToken]
       )
 
-    charge = Stripe::Charge.create(
+  charge = Stripe::Charge.create(
       :customer    => customer.id,
       :amount      => (@ad.price*100).to_i,
       :description => 'Rails Stripe customer',
       :currency    => 'usd'
       )
+ 
+ if charge.paid  == true
+  @ad.paid = true
+   
+ end
 
     rescue Stripe::CardError => e
       flash[:error] = e.message
@@ -107,6 +97,6 @@ class AdsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ad_params
-    params.require(:ad).permit(:variations, :brief, :make_copy, :make_image)
+    params.require(:ad).permit(:variations, :brief, :make_copy, :make_image, :existing_copy)
     end
 end

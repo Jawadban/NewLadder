@@ -1,13 +1,26 @@
+-Analytics.identify(user_id: "#{current_user.id}", traits: {created_at: DateTime.now})
+/ -Analytics.track(user_id: "#{current_user.id}", event: 'Logged In')
 #ads.clearfix
-  - unless @ad.blank?
+  - unless @ad.blank? 
     - @ad.each do |ad|
-      %a{ href: (url_for [ad])}
-        .ad
-          %p.title= ad.brief
-          %p.bpdy= ad.variations
-          %p.date= time_ago_in_words(ad.created_at)
+      - if ad.paid == true
+        %a{ href: (url_for [ad])}
+          .ad
+            %p.title= ad.brief
+            %p.body= "variations: #{ad.variations}"
+            -if ad.make_copy && ad.make_image
+              %p.body= "Copy & Image"
+            -if ad.make_copy && !ad.make_image
+              %p.body= "Copy Only"
+            -if ad.make_image && !ad.make_copy
+              %p.body= "Image Only"
+            %p.date= time_ago_in_words(ad.created_at)
   - else
     %h2 Create an ad
     %p It appears you haven't created any ads yet... Lets fix that. Why don't you go ahead and try creating a new ad
     %br
     = link_to "New Ad", new_ad_path, class: "button"
+
+
+
+   

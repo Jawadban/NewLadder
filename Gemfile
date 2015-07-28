@@ -20,6 +20,8 @@ gem "figaro"
 gem 'sendgrid' 
 gem 'better_errors'
 gem 'meta_request'
+gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
+
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

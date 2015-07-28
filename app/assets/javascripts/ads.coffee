@@ -9,7 +9,7 @@ $(document).on "page:change", ->
   console.log "page change"
   $("#ad_make_copy").on "click", ->
     console.log "clicked"
-    $(".show-me-copy").toggle()
+    $(".ad_existing_copy").toggle()
   $("#ad_make_image").on "click", ->
     console.log "clicked"
     $(".show-me-image").toggle()

@@ -1,10 +1,9 @@
 class OptionValidator < ActiveModel::Validator
   def validate(record)
     if record.make_image == false && record.make_copy == false
-#ToDo fix error message
 
+		#ToDo fix error message
         record.errors[:base] << "You must select at least one checkbox!" 
-
     end
   end
 end
@@ -18,7 +17,6 @@ class Ad < ActiveRecord::Base
 			   #paid_changed?  
 
 			   #ajax call after stripe callback comes in  
-
 
 
 	def get_price

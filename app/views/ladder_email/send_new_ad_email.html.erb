@@ -6,12 +6,13 @@
   <body>
   <h1> New Order In</h1>
 	
-	<% if @ad.make_copy == true && @ad.make_image == false %>
+	  <% if @ad.make_copy == true && @ad.make_image == false %>
     <h3>Request for just copy</h3>
     <% end %>
 
     <% if @ad.make_copy == false && @ad.make_image == true %>
     <h3>Request for just image</h3>
+    <h4>Existing copy is: <strong><%= @ad.existing_copy %></strong></h4>
     <% end %>
 
     <% if @ad.make_copy == true && @ad.make_image == true %>

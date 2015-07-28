@@ -5,14 +5,7 @@
 	%p
 		Variations: #{@ad.variations}
 
-	/ -@ad = Ad.find(params[:id])
-
-	= form_for @ad do |f|
-		
-		/HELPPP 
-		/ = link_to "Reorder", ad_path(@ad), method: :put, class: "button"
-		
-
+	= form_for @ad do |f|		
 		= link_to "Cancel", root_path, class: "button"
 
 	

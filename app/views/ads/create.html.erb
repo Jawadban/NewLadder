@@ -7,7 +7,7 @@
     <% end %>
 
     <% if @ad.make_copy == false && @ad.make_image == true %>
-    <h3>You would like just image variations made for existing copy</h3>
+    <h3>You would like just image variations made for this copy: <%= @ad.existing_copy %></h3>
     <% end %>
 
     <% if @ad.make_copy == true && @ad.make_image == true %>
@@ -23,12 +23,8 @@
     <%= a.hidden_field :name_id, value: @ad.id %> 
     <%= a.hidden_field :make_copy, value: @ad.make_copy %>
     <%= a.hidden_field :make_image, value: @ad.make_image%> 
+    <%= a.hidden_field :existing_copy, value: @ad.existing_copy%> 
  
-
- 
-
-
-
 
   <article>
     <label class="amount">
@@ -36,17 +32,11 @@
     </label>
   </article>
 
-
-  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          data-key="pk_test_DR5DnEeZCECmEKgg8rJmAuia"
-          data-description="Purchase"
-
 <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
       data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
       data-description="Purchase"
-
-          data-amount=<%=@ad.price*100%>></script>
-                    <!-- #dataonpaid callback or something -->
+      data-amount=<%=@ad.price*100%>></script>
+          <!-- #dataonpaid callback or something -->
           <!-- webhook more secure, server to server -->
 <% end %>
 

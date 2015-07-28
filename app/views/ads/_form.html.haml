@@ -6,22 +6,17 @@
 
 		= f.check_box :make_copy, {checked: true}
 		I would like new copy created for this ad
-		.show-me-copy{ style: "display: none;"}
-			SHOW ME
+	
+		=f.input :existing_copy , label: "Enter your existing copy here:"
+	
+
 		%br
 		= f.check_box :make_image, {checked: true}
 		I would like a new image created for this ad
-		.show-me-image{ style: "display: none;"}
-			SHOW ME
+
+		/ .show-me-image{ style: "display: none;"}
+		/ 	SHOW ME
+		
+
 		%br
 		= f.button :submit, "Submit", class: "button"
-		/ %button "click me", class: "click-me"
-
-
-
-:javascript
-	$(document).ready(function() {
-		$(".button").on("click-me", function(){
-			append("<p>hello world</p>");
-		})	
-	});
